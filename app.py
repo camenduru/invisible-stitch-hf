@@ -208,7 +208,7 @@ def generate_scene(img: Image.Image, prompt: str):
     scene.gaussians._xyz[:, 1] = -scene.gaussians._xyz[:, 1]
     scene.gaussians._xyz[:, 2] = -scene.gaussians._xyz[:, 2]
 
-    save_path = "output.ply"
+    save_path = "./output.ply"
 
     scene.gaussians.save_ply(save_path)
 
