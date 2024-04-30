@@ -191,13 +191,6 @@ def generate_scene(img: Image.Image, prompt: str):
     # crop to ensure the image dimensions are divisible by 8
     img = img.crop((0, 0, img.width - img.width % 8, img.height - img.height % 8))
 
-    from hashlib import sha1
-    from datetime import datetime
-
-    run_id = sha1(datetime.now().isoformat().encode()).hexdigest()[:6]
-
-    run_name = f"gradio_{run_id}"
-
     gs_optimization_bundle, point_cloud = generate_point_cloud(img, prompt)
 
     downsampled_point_cloud = downsample_point_cloud(gs_optimization_bundle, device=device)
@@ -215,7 +208,7 @@ def generate_scene(img: Image.Image, prompt: str):
     scene.gaussians._xyz[:, 1] = -scene.gaussians._xyz[:, 1]
     scene.gaussians._xyz[:, 2] = -scene.gaussians._xyz[:, 2]
 
-    save_path = os.path.join("outputs", f"{run_name}.ply")
+    save_path = "output.ply"
 
     scene.gaussians.save_ply(save_path)
 
